@@ -11,11 +11,19 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError((err) => {
-        if (err.status === 401) {
-          // auto logout if 401 response returned from api
-          this.authenticationService.logout();
+        switch (err.status) {
+          case 400: {
+            return throwError('Bad request: Username is already taken.');
+          }
+          case 401: {
+            // auto logout if 401 response returned from api
+            this.authenticationService.logout();
+            return throwError('Bad request: Username or password is incorrect');
+          }
+          default: {
+            return throwError('Unhandled error');
+          }
         }
-        return throwError('401: Unauthorized');
       })
     );
   }
