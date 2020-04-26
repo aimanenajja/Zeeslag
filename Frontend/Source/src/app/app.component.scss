@@ -1,0 +1,21 @@
+.toolbar {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  background-color: darkblue;
+  color: lightblue;
+  font-weight: 600;
+
+  > span {
+    margin-left: 30px;
+  }
+
+  .links span {
+    margin-right: 30px;
+    cursor: pointer;
+  }
+}
+
+.spacer {
+  flex: 1;
+}
