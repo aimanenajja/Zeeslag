@@ -5,7 +5,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({ templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {
-  loginForm: FormGroup;
+  registerForm: FormGroup;
   loading = false;
   submitted = false;
   returnUrl: string;
@@ -24,11 +24,11 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group(
+    this.registerForm = this.formBuilder.group(
       {
         nickname: ['', Validators.required],
         email: ['', Validators.required],
-        password: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: [''],
       },
       {
@@ -61,16 +61,14 @@ export class RegisterComponent implements OnInit {
 
   // convenience getter for easy access to form fields
   get f() {
-    return this.loginForm.controls;
+    return this.registerForm.controls;
   }
 
   onSubmit() {
     this.submitted = true;
 
-    console.log('loginForm', this.loginForm);
-
     // stop here if form is invalid
-    if (this.loginForm.invalid) {
+    if (this.registerForm.invalid) {
       return;
     }
 

@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({ templateUrl: 'login.component.html' })
@@ -27,7 +26,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
     // get return url from route parameters or default to '/'
@@ -48,15 +47,12 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService
-      .login(this.f.email.value, this.f.password.value)
-      .pipe(first())
-      .subscribe(
-        () => this.router.navigate([this.returnUrl]),
-        (error) => {
-          this.error = error;
-          this.loading = false;
-        }
-      );
+    this.authenticationService.login(this.f.email.value, this.f.password.value).subscribe(
+      () => this.router.navigate([this.returnUrl]),
+      (error) => {
+        this.error = error;
+        this.loading = false;
+      }
+    );
   }
 }
