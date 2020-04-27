@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({ templateUrl: 'register.component.html' })
@@ -8,12 +8,10 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
   submitted = false;
-  returnUrl: string;
   error = '';
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService
   ) {
@@ -35,9 +33,6 @@ export class RegisterComponent implements OnInit {
         validator: this.mustMatch('password', 'confirmPassword'),
       }
     );
-
-    // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   private mustMatch(controlName: string, matchingControlName: string) {
@@ -74,7 +69,7 @@ export class RegisterComponent implements OnInit {
 
     this.loading = true;
     this.authenticationService.register(this.f.nickname.value, this.f.email.value, this.f.password.value).subscribe(
-      () => this.router.navigate([this.returnUrl]),
+      () => this.router.navigate(['/login'], { state: { email: this.f.email.value } }),
       (error) => {
         this.error = error;
         this.loading = false;
