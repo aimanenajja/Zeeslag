@@ -1,5 +1,4 @@
-﻿using System;
-using Battleship.Domain.GridDomain.Contracts;
+﻿using Battleship.Domain.GridDomain.Contracts;
 
 namespace Battleship.Domain.GridDomain
 {
@@ -19,12 +18,14 @@ namespace Battleship.Domain.GridDomain
 
         public GridSquare(GridCoordinate coordinate)
         {
-            throw new NotImplementedException("Constructor of GridSquare class is not implemented");
+            Status = GridSquareStatus.Untouched;
+            Coordinate = coordinate;
+            NumberOfBombs = 0;
         }
 
         public void HitByBomb()
         {
-            throw new NotImplementedException("HitByBomb method of GridSquare class is not implemented");
+            NumberOfBombs++;
         }
     }
 

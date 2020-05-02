@@ -16,7 +16,11 @@ namespace Battleship.Domain.GameDomain
 
         internal Game(GameSettings settings, IPlayer player1, IPlayer player2)
         {
-            throw new NotImplementedException("Constructor of Game class is not implemented");
+            Id = Guid.NewGuid();
+            Settings = settings;
+            Player1 = player1;
+            Player2 = player2;
+            IsStarted = false;
         }
 
         public Result Start()
@@ -31,12 +35,12 @@ namespace Battleship.Domain.GameDomain
 
         public IPlayer GetPlayerById(Guid playerId)
         {
-            throw new NotImplementedException("GetPlayerById method of Game class is not implemented");
+            return playerId == Player1.Id ? Player1 : Player2;
         }
 
         public IPlayer GetOpponent(IPlayer player)
         {
-            throw new NotImplementedException("GetOpponent method of Game class is not implemented");
+            return player == Player1 ? Player2 : Player1;
         }
     }
 }

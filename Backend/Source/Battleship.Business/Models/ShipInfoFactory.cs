@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Battleship.Business.Models.Contracts;
 using Battleship.Domain.FleetDomain.Contracts;
 
@@ -9,12 +10,12 @@ namespace Battleship.Business.Models
     {
         public IList<IShipInfo> CreateMultipleFromFleet(IFleet fleet)
         {
-            throw new NotImplementedException("CreateMultipleFromFleet of ShipInfoFactory class is not implemented");
+            return fleet.GetAllShips().Select(ship => new ShipInfo(ship)).ToList<IShipInfo>();
         }
 
         public IList<IShipInfo> CreateMultipleFromSunkenShipsOfFleet(IFleet fleet)
         {
-            throw new NotImplementedException("CreateMultipleFromSunkenShipsOfFleet of ShipInfoFactory class is not implemented");
+            return fleet.GetSunkenShips().Select(ship => new ShipInfo(ship)).ToList<IShipInfo>();
         }
     }
 }

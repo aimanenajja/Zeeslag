@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Battleship.Business.Models.Contracts;
 using Battleship.Domain.FleetDomain;
 using Battleship.Domain.FleetDomain.Contracts;
@@ -16,7 +17,9 @@ namespace Battleship.Business.Models
 
         public ShipInfo(IShip ship)
         {
-            throw new NotImplementedException("Constructor of ShipInfo class is not implemented");
+            Coordinates = ship.Squares.Select(square => square.Coordinate).ToArray();
+            Kind = ship.Kind;
+            HasSunk = ship.HasSunk;
         }
     }
 }

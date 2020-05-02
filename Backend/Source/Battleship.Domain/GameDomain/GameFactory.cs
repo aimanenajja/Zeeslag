@@ -1,5 +1,6 @@
-﻿using System;
-using Battleship.Domain.GameDomain.Contracts;
+﻿using Battleship.Domain.GameDomain.Contracts;
+using Battleship.Domain.GridDomain;
+using Battleship.Domain.PlayerDomain;
 using Battleship.Domain.PlayerDomain.Contracts;
 
 namespace Battleship.Domain.GameDomain
@@ -8,7 +9,7 @@ namespace Battleship.Domain.GameDomain
     {
         public IGame CreateNewSinglePlayerGame(GameSettings settings, User user)
         {
-            throw new NotImplementedException("CreateNewSinglePlayerGame method of GameFactory class is not implemented");
+            return new Game(settings, new HumanPlayer(user, settings), new ComputerPlayer(settings, new RandomShootingStrategy(settings, new Grid(settings.GridSize))));
         }
 
         public IGame CreateNewTwoPlayerGame(GameSettings settings, IPlayer player1, IPlayer player2)

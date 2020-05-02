@@ -1,4 +1,5 @@
 ﻿using System;
+using Battleship.Domain.FleetDomain;
 using Battleship.Domain.FleetDomain.Contracts;
 using Battleship.Domain.GameDomain;
 using Battleship.Domain.GridDomain;
@@ -18,6 +19,10 @@ namespace Battleship.Domain.PlayerDomain
 
         protected PlayerBase(Guid id, string nickName, GameSettings gameSettings)
         {
+            Id = id;
+            NickName = nickName;
+            Grid = new Grid(gameSettings.GridSize);
+            Fleet = new Fleet();
         }
 
         public void ReloadBombs()

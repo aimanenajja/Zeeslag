@@ -35,21 +35,15 @@ namespace Battleship.Domain.FleetDomain
 
         public static ShipKind CreateFromCode(string shipCode)
         {
-            switch (shipCode.ToUpper())
+            return (shipCode.ToUpper()) switch
             {
-                case "CAR":
-                    return Carrier;
-                case "BS":
-                    return Battleship;
-                case "DS":
-                    return Destroyer;
-                case "SM":
-                    return Submarine;
-                case "PB":
-                    return PatrolBoat;
-                default:
-                    throw new ApplicationException($"The ship code {shipCode} does not exist.");
-            }
+                "CAR" => Carrier,
+                "BS" => Battleship,
+                "DS" => Destroyer,
+                "SM" => Submarine,
+                "PB" => PatrolBoat,
+                _ => throw new ApplicationException($"The ship code {shipCode} does not exist."),
+            };
         }
 
 

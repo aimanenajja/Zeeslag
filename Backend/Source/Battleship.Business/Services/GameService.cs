@@ -11,17 +11,25 @@ namespace Battleship.Business.Services
 {
     public class GameService : IGameService
     {
+        private readonly IGameFactory _gameFactory;
+        private readonly IGameRepository _gameRepository;
+        private readonly IGameInfoFactory _gameInfoFactory;
+
         public GameService(
             IGameFactory gameFactory,
             IGameRepository gameRepository, 
             IGameInfoFactory gameInfoFactory)
         {
-
+            _gameFactory = gameFactory;
+            _gameRepository = gameRepository;
+            _gameInfoFactory = gameInfoFactory;
         }
 
         public IGameInfo CreateGameForUser(GameSettings settings, User user)
         {
-            throw new NotImplementedException("CreateGameForUser method of GameService class is not implemented");
+            var game = _gameFactory.CreateNewSinglePlayerGame(settings, user);
+            _gameRepository.Add(game);
+            return _gameInfoFactory.CreateFromGame(game, user.Id);
         }
 
         public Result StartGame(Guid gameId, Guid playerId)
@@ -31,7 +39,8 @@ namespace Battleship.Business.Services
 
         public IGameInfo GetGameInfoForPlayer(Guid gameId, Guid playerId)
         {
-            throw new NotImplementedException("GetGameInfoForPlayer method of GameService class is not implemented");
+            var game = _gameRepository.GetById(gameId);
+            return _gameInfoFactory.CreateFromGame(game, playerId);
         }
 
         public Result PositionShipOnGrid(Guid gameId, Guid playerId, ShipKind shipKind, GridCoordinate[] segmentCoordinates)

@@ -1,15 +1,25 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Battleship.Domain.GameDomain
 {
     public class GameSettings
     {
+        private int _gridSize;
         /// <summary>
         /// Size of the grid.
         /// Must be a value between 10 and 15 (10 and 15 included)
         /// Default value = 10.
         /// </summary>
-        public int GridSize { get; set; }
+        public int GridSize
+        {
+            get => _gridSize; 
+            set
+            {
+                if (value < 10 || value > 15) throw new ArgumentOutOfRangeException();
+                _gridSize = value;
+            }
+        }
 
         /// <summary>
         /// Indicates if it is allowed to have the segments of a ship to not be aligned vertically or horizontally.
@@ -44,6 +54,7 @@ namespace Battleship.Domain.GameDomain
         /// </summary>
         public bool CanMoveUndamagedShipsDuringGame { get; set; }
 
+        private int _numberOfTurnsBeforeAShipCanBeMoved;
         /// <summary>
         /// The number of turns a player must wait before het can move a ship.
         /// Must be a value between 1 and 10 (1 and 10 included)
@@ -51,11 +62,24 @@ namespace Battleship.Domain.GameDomain
         ///
         /// Default value = 5.
         /// </summary>
-        public int NumberOfTurnsBeforeAShipCanBeMoved { get; set; }
+        public int NumberOfTurnsBeforeAShipCanBeMoved
+        {
+            get => _numberOfTurnsBeforeAShipCanBeMoved;
+            set
+            {
+                if (value < 1 || value > 10) throw new ArgumentOutOfRangeException();
+                _numberOfTurnsBeforeAShipCanBeMoved = value;
+            }
+        }
 
         public GameSettings()
         {
-            //TOOD: initialize default values for the properties
+            GridSize = 10;
+            AllowDeformedShips = false;
+            Mode = GameMode.Default;
+            MustReportSunkenShip = true;
+            CanMoveUndamagedShipsDuringGame = false;
+            NumberOfTurnsBeforeAShipCanBeMoved = 5;
         }
     }
 }
