@@ -13,7 +13,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((err) => {
         switch (err.status) {
           case 400: {
-            return throwError('Bad request: Username is already taken.');
+            return throwError(Object.values(err.error.errors).join('\r\n'));
           }
           case 401: {
             // auto logout if 401 response returned from api
