@@ -22,14 +22,30 @@ export class GameSettingsComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private router: Router, private gameService: GameService) {}
 
   ngOnInit() {
-    this.gameSettingsForm = this.formBuilder.group({
-      gridSize: [null, [Validators.min(10), Validators.max(15), Validators.required]],
-      allowDeformedShips: false,
-      mode: [null, Validators.required],
-      mustReportSunkenShip: false,
-      canMoveUndamagedShipsDuringGame: false,
-      numberOfTurnsBeforeAShipCanBeMoved: [null, [Validators.min(1), Validators.max(10), Validators.required]],
-    });
+    const gs = this.gameService.gameSettings;
+    if (gs) {
+      this.selectedGameMode = this.gameModes[gs.mode];
+      this.gameSettingsForm = this.formBuilder.group({
+        gridSize: [gs.gridSize, [Validators.min(10), Validators.max(15), Validators.required]],
+        allowDeformedShips: gs.allowDeformedShips,
+        mode: [gs.mode, Validators.required],
+        mustReportSunkenShip: gs.mustReportSunkenShip,
+        canMoveUndamagedShipsDuringGame: gs.canMoveUndamagedShipsDuringGame,
+        numberOfTurnsBeforeAShipCanBeMoved: [
+          gs.numberOfTurnsBeforeAShipCanBeMoved,
+          [Validators.min(1), Validators.max(10), Validators.required],
+        ],
+      });
+    } else {
+      this.gameSettingsForm = this.formBuilder.group({
+        gridSize: [null, [Validators.min(10), Validators.max(15), Validators.required]],
+        allowDeformedShips: false,
+        mode: [null, Validators.required],
+        mustReportSunkenShip: false,
+        canMoveUndamagedShipsDuringGame: false,
+        numberOfTurnsBeforeAShipCanBeMoved: [null, [Validators.min(1), Validators.max(10), Validators.required]],
+      });
+    }
   }
 
   // convenience getter for easy access to form fields
