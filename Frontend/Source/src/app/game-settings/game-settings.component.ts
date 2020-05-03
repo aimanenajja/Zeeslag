@@ -8,9 +8,9 @@ import { GameService } from '../_services/game.service';
 @Component({ templateUrl: './game-settings.component.html' })
 export class GameSettingsComponent implements OnInit {
   gameSettingsForm: FormGroup;
-  loading = false;
   submitted = false;
   error = '';
+  loading = false;
   gameModes = {
     1: 'One shot per turn',
     2: 'Five shots per turn',
@@ -43,8 +43,6 @@ export class GameSettingsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('form', this.f);
-
     this.submitted = true;
 
     // stop here if form is invalid
@@ -52,17 +50,16 @@ export class GameSettingsComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
-
     const gameSettings: GameSettings = {
       ...this.gameSettingsForm.value,
-      gridSize: +this.f['gridSize'].value,
-      mode: +this.f['mode'].value,
-      numberOfTurnsBeforeAShipCanBeMoved: +this.f['numberOfTurnsBeforeAShipCanBeMoved'].value,
+      gridSize: +this.gameSettingsForm.get('gridSize').value,
+      mode: +this.gameSettingsForm.get('mode').value,
+      numberOfTurnsBeforeAShipCanBeMoved: +this.gameSettingsForm.get('numberOfTurnsBeforeAShipCanBeMoved').value,
     };
 
-    this.gameService.createNewSinglePlayerGame(gameSettings).subscribe(
-      () => this.router.navigate(['/game']),
+    this.loading = true;
+    this.gameService.saveGameSettings(gameSettings).subscribe(
+      () => this.router.navigate(['/lobby']),
       (error) => {
         this.error = error;
         this.loading = false;

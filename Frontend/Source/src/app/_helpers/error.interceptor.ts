@@ -18,7 +18,8 @@ export class ErrorInterceptor implements HttpInterceptor {
           case 401: {
             // auto logout if 401 response returned from api
             this.authenticationService.logout();
-            return throwError('Bad request: Username or password is incorrect');
+            // TODO: intercept this with message from backend
+            return throwError('Access Denied: Username or password is incorrect or token is expired');
           }
           default: {
             return throwError('Unhandled error');

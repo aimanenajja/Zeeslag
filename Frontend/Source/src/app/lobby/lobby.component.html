@@ -5,10 +5,18 @@
     Alone against an AI or do you rather play with a friend against the powerful AI?<br />
     Everything is possible!<br />
   </p>
-  <button class="btn btn-primary" (click)="playGame()">
+  <button *ngIf="!gameInfo" [disabled]="loading" class="btn btn-primary" (click)="playGame()">
+    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
     <fa-icon [icon]="faPlay"></fa-icon>
     Play game
   </button>
+  <button *ngIf="gameInfo" class="btn btn-danger" (click)="endGame()">
+    <fa-icon [icon]="faStop"></fa-icon>
+    End game
+  </button>
+  <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
+    {{ error }}
+  </div>
 </div>
 
 <section>
