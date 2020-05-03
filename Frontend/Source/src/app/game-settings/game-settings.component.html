@@ -1,0 +1,83 @@
+<div class="col-md-6 offset-md-3 mt-5">
+  <div class="card">
+    <h4 class="card-header">Battleship Game Settings</h4>
+    <div class="card-body">
+      <form [formGroup]="gameSettingsForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="gridSize">Grid Size</label>
+          <input
+            type="text"
+            formControlName="gridSize"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.gridSize.errors }"
+          />
+          <div *ngIf="submitted && f.gridSize.errors" class="invalid-feedback">
+            <div *ngIf="f.gridSize.errors.min">Grid Size must be greater than or equal to 10</div>
+            <div *ngIf="f.gridSize.errors.max">Grid Size must be less than or equal to 15</div>
+            <div *ngIf="f.gridSize.errors.required">Grid Size is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="checkbox" formControlName="allowDeformedShips" />
+          Allow deformed ships?
+        </div>
+        <div ngbDropdown class="form-group">
+          <div
+            class="btn btn-outline-primary"
+            id="dropdownBasic1"
+            ngbDropdownToggle
+            [ngClass]="{ 'is-invalid': submitted && f.mode.errors }"
+          >
+            {{ selectedGameMode }}
+          </div>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <div ngbDropdownItem *ngFor="let gameMode of gameModes | keyvalue" (click)="changeGameMode(gameMode)">
+              {{ gameMode.key + ' - ' + gameMode.value }}
+            </div>
+          </div>
+          <div *ngIf="submitted && f.mode.errors" class="invalid-feedback">
+            <div *ngIf="f.mode.errors.required">Game Mode is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="checkbox" formControlName="mustReportSunkenShip" />
+          Must report sunken ships?
+        </div>
+        <div class="form-group">
+          <input type="checkbox" formControlName="canMoveUndamagedShipsDuringGame" />
+          Can move undamaged ships during game?
+        </div>
+        <div class="form-group">
+          <label for="numberOfTurnsBeforeAShipCanBeMoved">Number of turns before a ship can be moved</label>
+          <input
+            type="text"
+            formControlName="numberOfTurnsBeforeAShipCanBeMoved"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.numberOfTurnsBeforeAShipCanBeMoved.errors }"
+          />
+          <div *ngIf="submitted && f.numberOfTurnsBeforeAShipCanBeMoved.errors" class="invalid-feedback">
+            <div *ngIf="f.numberOfTurnsBeforeAShipCanBeMoved.errors.min">
+              Number of turns before a ship can be moved must be greater than or equal to 1
+            </div>
+            <div *ngIf="f.numberOfTurnsBeforeAShipCanBeMoved.errors.max">
+              Number of turns before a ship can be moved must be less than or equal to 10
+            </div>
+            <div *ngIf="f.numberOfTurnsBeforeAShipCanBeMoved.errors.required">
+              Number of turns before a ship can be moved is required
+            </div>
+          </div>
+        </div>
+        <button [disabled]="loading" class="btn btn-primary">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Save
+        </button>
+        <div class="btn btn-danger" routerLink="/lobby">
+          Cancel
+        </div>
+        <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
+          {{ error }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

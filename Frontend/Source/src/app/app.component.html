@@ -3,9 +3,10 @@
   <span>The Battleship</span>
   <div class="spacer"></div>
   <div class="links">
-    <span>Game</span>
-    <span>About</span>
-    <span>Contact</span>
+    <span routerLink="/lobby">Lobby</span>
+    <span routerLink="/gamesettings">Settings</span>
+    <!-- <span>About</span>
+    <span>Contact</span> -->
     <span *ngIf="accessPass" (click)="logout()">Logout</span>
   </div>
 </div>

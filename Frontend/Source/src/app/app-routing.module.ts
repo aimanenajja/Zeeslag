@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { GameSettingsComponent } from './game-settings/game-settings.component';
+import { GameComponent } from './game/game.component';
+import { LobbyComponent } from './lobby/lobby.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './_helpers/auth.guard';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'lobby', component: LobbyComponent, canActivate: [AuthGuard] },
+  { path: 'game', component: GameComponent, canActivate: [AuthGuard] },
+  { path: 'gamesettings', component: GameSettingsComponent, canActivate: [AuthGuard] },
 
   // otherwise redirect to home
-  { path: '**', redirectTo: 'home' },
+  { path: '**', redirectTo: 'lobby' },
 ];
 
 @NgModule({
