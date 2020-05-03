@@ -15,6 +15,7 @@ namespace Battleship.Domain.FleetDomain
 
         public Ship(ShipKind kind)
         {
+            Kind = kind;
         }
 
         public void PositionOnGrid(IGridSquare[] squares)

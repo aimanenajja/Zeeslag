@@ -13,6 +13,14 @@ namespace Battleship.Domain.GridDomain
         {
             Size = size;
             Squares = new GridSquare[size, size];
+
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    Squares[i, j] = new GridSquare(new GridCoordinate(i, j));
+                }
+            }
         }
 
         public IGridSquare GetSquareAt(GridCoordinate coordinate)

@@ -17,7 +17,7 @@ namespace Battleship.Business.Models
 
         public ShipInfo(IShip ship)
         {
-            Coordinates = ship.Squares.Select(square => square.Coordinate).ToArray();
+            Coordinates = ship.Squares?.Select(square => square.Coordinate).ToArray();
             Kind = ship.Kind;
             HasSunk = ship.HasSunk;
         }
