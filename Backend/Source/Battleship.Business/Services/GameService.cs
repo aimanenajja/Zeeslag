@@ -45,7 +45,9 @@ namespace Battleship.Business.Services
 
         public Result PositionShipOnGrid(Guid gameId, Guid playerId, ShipKind shipKind, GridCoordinate[] segmentCoordinates)
         {
-            throw new NotImplementedException("PositionShipOnGrid method of GameService class is not implemented");
+            var game = _gameRepository.GetById(gameId);
+            var player1 = game.GetPlayerById(playerId);
+            return player1.Fleet.TryMoveShipTo(shipKind, segmentCoordinates, player1.Grid);
         }
 
         public ShotResult ShootAtOpponent(Guid gameId, Guid shooterPlayerId, GridCoordinate coordinate)

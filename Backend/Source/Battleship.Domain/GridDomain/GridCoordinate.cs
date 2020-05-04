@@ -20,7 +20,7 @@ namespace Battleship.Domain.GridDomain
 
         public bool IsOutOfBounds(int gridSize)
         {
-            throw new NotImplementedException("IsOutOfBounds method of GridCoordinate class is not implemented");
+            return Row < 0 || Column < 0 || Row >= gridSize || Column >= gridSize;
         }
 
         public GridCoordinate GetNeighbor(Direction direction)

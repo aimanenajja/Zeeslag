@@ -25,7 +25,7 @@ namespace Battleship.Domain.GridDomain
 
         public IGridSquare GetSquareAt(GridCoordinate coordinate)
         {
-            throw new NotImplementedException("GetSquareAt method of Grid class is not implemented");
+            return Squares[coordinate.Row, coordinate.Column];
         }
 
         public IGridSquare Shoot(GridCoordinate coordinate)
