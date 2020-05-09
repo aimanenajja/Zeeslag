@@ -2,6 +2,7 @@
   "appService.defaultWebAppToDeploy": "None",
   "editor.acceptSuggestionOnEnter": "on",
   "editor.formatOnSave": true,
+  "workbench.editor.scrollToSwitchTabs": true,
   "files.exclude": {
     "**/node_modules": true
   },

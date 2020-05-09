@@ -5,6 +5,8 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { GameInfo } from '../_models/game-info.model';
 import { GameSettings } from '../_models/game-settings.model';
+import { Result } from '../_models/result.model';
+import { ShipPositioning } from '../_models/ship-positioning.model';
 
 @Injectable({ providedIn: 'root' })
 export class GameService {
@@ -41,6 +43,13 @@ export class GameService {
         this.gameInfoSubject.next(gameInfo);
         return gameInfo;
       })
+    );
+  }
+
+  positionShip(): Observable<Result> {
+    return this.http.post<Result>(
+      `${environment.apiUrl}/Games/${this.gameInfo.id}/positionship`,
+      {} as ShipPositioning
     );
   }
 
