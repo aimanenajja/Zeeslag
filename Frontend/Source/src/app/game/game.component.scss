@@ -1,0 +1,22 @@
+.content {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  width: 30px;
+}
+
+.own .column:hover {
+  background-color: green;
+}

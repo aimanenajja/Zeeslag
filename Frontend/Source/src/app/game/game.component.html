@@ -1,1 +1,12 @@
-<p>game works!</p>
+<div class="content">
+  <div class="grid-container own">
+    <div class="row" *ngFor="let squares of gameInfo.ownGrid.squares; let x = index">
+      <div class="column" *ngFor="let square of squares; let y = index">x</div>
+    </div>
+  </div>
+  <div class="grid-container opponent">
+    <div class="row" *ngFor="let squares of gameInfo.opponentGrid.squares; let x = index">
+      <div class="column" *ngFor="let square of squares; let y = index">o</div>
+    </div>
+  </div>
+</div>
